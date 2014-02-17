@@ -1,79 +1,225 @@
-.\"Modified from man(1) of FreeBSD, the NetBSD mdoc.template, and mdoc.samples.
-.\"See Also:
-.\"man mdoc.samples for a complete listing of options
-.\"man mdoc for the short list of editing options
-.\"/usr/share/misc/mdoc.template
-.Dd 25/01/2014               \" DATE 
-.Dt 1ADS-OTHELLO 1      \" Program name and manual section number 
-.Os Darwin
-.Sh NAME                 \" Section Header - required - don't modify 
-.Nm 1ADS-OTHELLO,
-.\" The following lines are read in generating the apropos(man -k) database. Use only key
-.\" words here as the database is built based on the words here and in the .ND line. 
-.Nm Other_name_for_same_program(),
-.Nm Yet another name for the same program.
-.\" Use .Nm macro to designate other names for the documented program.
-.Nd This line parsed for whatis database.
-.Sh SYNOPSIS             \" Section Header - required - don't modify
-.Nm
-.Op Fl abcd              \" [-abcd]
-.Op Fl a Ar path         \" [-a path] 
-.Op Ar file              \" [file]
-.Op Ar                   \" [file ...]
-.Ar arg0                 \" Underlined argument - use .Ar anywhere to underline
-arg2 ...                 \" Arguments
-.Sh DESCRIPTION          \" Section Header - required - don't modify
-Use the .Nm macro to refer to your program throughout the man page like such:
-.Nm
-Underlining is accomplished with the .Ar macro like this:
-.Ar underlined text .
-.Pp                      \" Inserts a space
-A list of items with descriptions:
-.Bl -tag -width -indent  \" Begins a tagged list 
-.It item a               \" Each item preceded by .It macro
-Description of item a
-.It item b
-Description of item b
-.El                      \" Ends the list
-.Pp
-A list of flags and their descriptions:
-.Bl -tag -width -indent  \" Differs from above in tag removed 
-.It Fl a                 \"-a flag as a list item
-Description of -a flag
-.It Fl b
-Description of -b flag
-.El                      \" Ends the list
-.Pp
-.\" .Sh ENVIRONMENT      \" May not be needed
-.\" .Bl -tag -width "ENV_VAR_1" -indent \" ENV_VAR_1 is width of the string ENV_VAR_1
-.\" .It Ev ENV_VAR_1
-.\" Description of ENV_VAR_1
-.\" .It Ev ENV_VAR_2
-.\" Description of ENV_VAR_2
-.\" .El                      
-.Sh FILES                \" File used or created by the topic of the man page
-.Bl -tag -width "/Users/joeuser/Library/really_long_file_name" -compact
-.It Pa /usr/share/file_name
-FILE_1 description
-.It Pa /Users/joeuser/Library/really_long_file_name
-FILE_2 description
-.El                      \" Ends the list
-.\" .Sh DIAGNOSTICS       \" May not be needed
-.\" .Bl -diag
-.\" .It Diagnostic Tag
-.\" Diagnostic informtion here.
-.\" .It Diagnostic Tag
-.\" Diagnostic informtion here.
-.\" .El
-.Sh SEE ALSO 
-.\" List links in ascending order by section, alphabetically within a section.
-.\" Please do not reference files that do not exist without filing a bug report
-.Xr a 1 , 
-.Xr b 1 ,
-.Xr c 1 ,
-.Xr a 2 ,
-.Xr b 2 ,
-.Xr a 3 ,
-.Xr b 3 
-.\" .Sh BUGS              \" Document known, unremedied bugs 
-.\" .Sh HISTORY           \" Document history if command behaves in a unique manner
+#include <stdio.h>
+
+#include "possibilites.h"
+#include "plateau.h"
+#include "pose.h"
+
+void changementJoueur(s_partie *partie);
+void majScore(s_partie *partie);
+
+void jouerCaseDirection(s_partie *partie, int ligne, int colonne, int abscisse, int ordonnee)
+{
+    // DECLARATION DE VARIABLES (ON LES INITIALISE TOUJOURS)
+    int pionAdverse = 0, pionJoueur = 0;
+
+    // IDENTIFICATION DU JOUEUR
+    identificationJoueur(*partie, &pionJoueur, &pionAdverse);
+  
+    // CHANGEMENT DE COULEUR DES PIONS DANS UNE DIRECTION DONNEE
+    do
+    {
+        partie->tabPlateau[ligne][colonne] = pionJoueur;
+            
+        ligne += abscisse;
+        colonne += ordonnee;
+            
+        partie->tabPlateau[ligne][colonne] = pionJoueur;
+
+    }
+    while (partie->tabPlateau[ligne+abscisse][colonne+ordonnee] == pionAdverse);
+    
+
+    // ON MET LE SCORE A JOUR APRES CHAQUE TOUR
+    majScore(partie);
+
+}
+
+
+void jouerCase(s_partie *partie, int ligne, int colonne)
+{
+    
+    // SI UNE DIRECTION EST POSSIBLE, ON PEUT JOUER ET RETOURNER LES PIONS DE CETTE DIRECTION
+    if (coupPossibleDirection(*partie, ligne, colonne, -1, 0) == 1)
+    {
+        jouerCaseDirection(partie, ligne, colonne, -1, 0);
+    }
+    if (coupPossibleDirection(*partie, ligne, colonne, -1, 1) == 1)
+    {
+        jouerCaseDirection(partie, ligne, colonne, -1, 1);
+    }
+    if (coupPossibleDirection(*partie, ligne, colonne, 0, 1) == 1)
+    {
+        jouerCaseDirection(partie, ligne, colonne, 0, 1);
+    }
+    if (coupPossibleDirection(*partie, ligne, colonne, 1, 1) == 1)
+    {
+        jouerCaseDirection(partie, ligne, colonne, 1, 1);
+    }
+    if (coupPossibleDirection(*partie, ligne, colonne, 1, 0) == 1)
+    {
+        jouerCaseDirection(partie, ligne, colonne, 1, 0);
+    }
+    if (coupPossibleDirection(*partie, ligne, colonne, 1, -1) == 1)
+    {
+        jouerCaseDirection(partie, ligne, colonne, 1, -1);
+    }
+    if (coupPossibleDirection(*partie, ligne, colonne, 0, -1) == 1)
+    {
+        jouerCaseDirection(partie, ligne, colonne, 0, -1);
+    }
+    if (coupPossibleDirection(*partie, ligne, colonne, -1, -1) == 1)
+    {
+        jouerCaseDirection(partie, ligne, colonne, -1, -1);
+    }
+  
+}
+
+
+
+
+void jouer(s_partie *partie)
+{
+    // LES TABLEAUX TEMPORAIRES STOCKERONT LE RETOUR CHARIOT PRIS EN COMPTE DANS LES FUTUR SCANF
+    int ligne = 0, colonne = 0;
+    char colonneLettreTemp[2] = {}, ligneLettreTemp[2]= {};
+    char colonneLettre = 0, ligneLettre = 0;
+    char correspondanceLigne[] = {'0','1', '2', '3', '4', '5', '6', '7', '8'};
+    char correspondanceColonne[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'x'};
+    
+    // IDENTIFICATION DU JOUEUR QUI DOIT JOUER
+    if (partie->joueurSuivant == 2)
+    {
+        printf("C'est aux noirs de jouer.\n\n");
+    }
+    else
+    {
+        printf("C'est aux blancs de jouer.\n\n");
+    }
+    
+    // SI AU MOINS UN COUP EST POSSIBLE PAR LE JOUEUR
+    if (possible(*partie) == 1)
+    {
+        do
+        {
+
+            // RENTREE DE LA LIGNE PAR LE JOUEUR
+            do
+            {
+                printf("Saisir le numéro de la ligne où vous voulez jouer : ");
+                // %1s RECUPERE LE CARACTERE ET LE RETOUR CHARIOT
+                scanf("%1s",ligneLettreTemp);
+                // LE CARACTERE ETANT LE 0 ON LE RECUPERE AINSI
+                ligneLettre = ligneLettreTemp[0];
+                // PERMET D'EVITER UN BUG D'AFFICHAGE EN VIDANT LES CARACTERES TAPES QUI SONT EN MEMOIRE (VIDE MEMOIRE STDIN)
+                while(getchar() != '\n')
+                {
+                    continue;
+                }
+            } while ((ligneLettre < '0') || (ligneLettre > '8'));
+        
+            // TRANSFORMATION DE LA LIGNE
+            for(int i = 0; i < 8; i++)
+            {
+                if(correspondanceLigne[i] == ligneLettre)
+                {
+                    ligne = i-1;
+                }
+            }
+        
+            // RENTREE DE LA COLONNE PAR LE JOUEUR
+            do
+            {
+                printf("Saisir la lettre de la colonne où vous voulez jouer : ");
+                // %1s RECUPERE LE CARACTERE ET LE RETOUR CHARIOT (PAS BESOIN DE & CAR C'EST UN TABLEAU)
+                scanf("%1s",colonneLettreTemp);
+                // LE CARACTERE ETANT LE 0 ON LE RECUPERE AINSI
+                colonneLettre = colonneLettreTemp[0];
+                // PERMET D'EVITER UN BUG D'AFFICHAGE EN VIDANT LES CARACTERES TAPES QUI SONT EN MEMOIRE (VIDE MEMOIRE STDIN)
+                while(getchar() != '\n')
+                {
+                    continue;
+                }
+            } while (((colonneLettre < 'a' || colonneLettre > 'h') && (colonneLettre < 'A' || colonneLettre > 'H')) && (colonneLettre != 'x' && colonneLettre != 'X'));
+            
+            // TRANSFORMATION DE LA COLONNE
+            if ((colonneLettre >= 'A' && colonneLettre <= 'H') || colonneLettre == 'X')
+            {
+                colonneLettre += 32;
+            }
+            
+            for(int i = 0; i < 8; i++)
+            {
+                if(correspondanceColonne[i] == colonneLettre)
+                {
+                    colonne = i;
+                }
+            }
+        } while (((ligneLettre < '1' && ligneLettre > '8') && (colonneLettre < 'a' && colonneLettre > 'h')) ^ (ligneLettre == '0' && colonneLettre != 'x'));
+        
+        printf("ligne: %d, colonne: %d\n",ligne, colonne);
+        
+        printf("\n\n");
+        
+        // SI LE JOUEUR RENTRE DES COORDONNES OU L'ON PEUT JOUER
+        if (coupPossible(*partie, ligne, colonne) == 1)
+        {
+            jouerCase(partie, ligne, colonne);
+            affiche(*partie);
+            changementJoueur(partie);
+        }
+        // SI LE JOUEUR RENTRE DES COORDONNEES OU IL NE PEUT PAS JOUER
+        else
+        {
+            printf("Vous pouvez jouer, mais pas sur cette case.\n");
+            printf("Veuillez saisir une case valide.\n\n");
+            jouer(partie);
+        }
+
+    }
+    
+    // SI AUCUN COUP N'EST POSSIBLE PAR LE JOUEUR
+    else
+    {
+        printf("Vous ne pouvez pas jouer, vous passez donc votre tour.\n\n");
+        changementJoueur(partie);
+    }
+    
+    
+}
+
+
+void changementJoueur(s_partie *partie)
+{
+    // CHANGEMENT DE JOUEUR EN FIN DE TOUR
+    if (partie->joueurSuivant == 2)
+    {
+        partie->joueurSuivant = 1;
+    }
+    else
+    {
+        partie->joueurSuivant = 2;
+    }
+}
+
+
+// MISE A JOUR DU SCORE
+void majScore(s_partie *partie)
+{
+    int noirs = 0;
+    int blancs = 0;
+    for(int i = 0; i < 8; i++)
+    {
+        for(int j = 0; j < 8; j++)
+        {
+            if(partie->tabPlateau[i][j] == 1)
+            {
+                blancs++;
+            } else if (partie->tabPlateau[i][j] == 2)
+            {
+                noirs++;
+            }
+        }
+    }
+    partie->tabScore[0] = noirs;
+    partie->tabScore[1] = blancs;
+}

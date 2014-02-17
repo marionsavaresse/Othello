@@ -7,8 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65387230189C8C5500C618C4 /* modesOrdinateur.c in Sources */ = {isa = PBXBuildFile; fileRef = 6538722F189C8C5500C618C4 /* modesOrdinateur.c */; };
 		656E01941893F3F400E31AC8 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 656E01931893F3F400E31AC8 /* main.c */; };
 		656E01961893F3F400E31AC8 /* _ADS_OTHELLO.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 656E01951893F3F400E31AC8 /* _ADS_OTHELLO.1 */; };
+		656E019E1893FB1000E31AC8 /* plateau.c in Sources */ = {isa = PBXBuildFile; fileRef = 656E019D1893FB1000E31AC8 /* plateau.c */; };
+		656E01A118946FA400E31AC8 /* possibilites.c in Sources */ = {isa = PBXBuildFile; fileRef = 656E01A018946FA400E31AC8 /* possibilites.c */; };
+		65948431189C036D0084D7E1 /* sauvegarde.c in Sources */ = {isa = PBXBuildFile; fileRef = 65948430189C036D0084D7E1 /* sauvegarde.c */; };
+		65B51EB718953A5300FD349A /* pose.c in Sources */ = {isa = PBXBuildFile; fileRef = 65B51EB618953A5300FD349A /* pose.c */; };
+		65B51EBB1895858D00FD349A /* jeu.c in Sources */ = {isa = PBXBuildFile; fileRef = 65B51EBA1895858D00FD349A /* jeu.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,9 +31,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6538722E189C8C4800C618C4 /* modesOrdinateur.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = modesOrdinateur.h; sourceTree = "<group>"; };
+		6538722F189C8C5500C618C4 /* modesOrdinateur.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = modesOrdinateur.c; sourceTree = "<group>"; };
 		656E01901893F3F400E31AC8 /* 1ADS-OTHELLO */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "1ADS-OTHELLO"; sourceTree = BUILT_PRODUCTS_DIR; };
 		656E01931893F3F400E31AC8 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		656E01951893F3F400E31AC8 /* _ADS_OTHELLO.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = _ADS_OTHELLO.1; sourceTree = "<group>"; };
+		656E019C1893F52100E31AC8 /* partie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = partie.h; sourceTree = "<group>"; };
+		656E019D1893FB1000E31AC8 /* plateau.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = plateau.c; sourceTree = "<group>"; };
+		656E019F1893FB2200E31AC8 /* plateau.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plateau.h; sourceTree = "<group>"; };
+		656E01A018946FA400E31AC8 /* possibilites.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = possibilites.c; sourceTree = "<group>"; };
+		656E01A218946FB300E31AC8 /* possibilites.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = possibilites.h; sourceTree = "<group>"; };
+		6594842F189C03620084D7E1 /* sauvegarde.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sauvegarde.h; sourceTree = "<group>"; };
+		65948430189C036D0084D7E1 /* sauvegarde.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sauvegarde.c; sourceTree = "<group>"; };
+		65B51EB618953A5300FD349A /* pose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pose.c; sourceTree = "<group>"; };
+		65B51EB818953A6000FD349A /* pose.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pose.h; sourceTree = "<group>"; };
+		65B51EB91895858000FD349A /* jeu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jeu.h; sourceTree = "<group>"; };
+		65B51EBA1895858D00FD349A /* jeu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jeu.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +80,19 @@
 			isa = PBXGroup;
 			children = (
 				656E01931893F3F400E31AC8 /* main.c */,
+				656E019C1893F52100E31AC8 /* partie.h */,
+				656E019F1893FB2200E31AC8 /* plateau.h */,
+				656E019D1893FB1000E31AC8 /* plateau.c */,
+				656E01A218946FB300E31AC8 /* possibilites.h */,
+				656E01A018946FA400E31AC8 /* possibilites.c */,
+				65B51EB818953A6000FD349A /* pose.h */,
+				65B51EB618953A5300FD349A /* pose.c */,
+				65B51EB91895858000FD349A /* jeu.h */,
+				65B51EBA1895858D00FD349A /* jeu.c */,
+				6594842F189C03620084D7E1 /* sauvegarde.h */,
+				65948430189C036D0084D7E1 /* sauvegarde.c */,
+				6538722E189C8C4800C618C4 /* modesOrdinateur.h */,
+				6538722F189C8C5500C618C4 /* modesOrdinateur.c */,
 				656E01951893F3F400E31AC8 /* _ADS_OTHELLO.1 */,
 			);
 			path = "1ADS-OTHELLO";
@@ -117,7 +149,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				656E019E1893FB1000E31AC8 /* plateau.c in Sources */,
+				65B51EBB1895858D00FD349A /* jeu.c in Sources */,
+				65387230189C8C5500C618C4 /* modesOrdinateur.c in Sources */,
 				656E01941893F3F400E31AC8 /* main.c in Sources */,
+				65B51EB718953A5300FD349A /* pose.c in Sources */,
+				65948431189C036D0084D7E1 /* sauvegarde.c in Sources */,
+				656E01A118946FA400E31AC8 /* possibilites.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +233,7 @@
 		656E019A1893F3F400E31AC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LD_NO_PIE = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -202,6 +241,7 @@
 		656E019B1893F3F400E31AC8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LD_NO_PIE = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -225,6 +265,7 @@
 				656E019B1893F3F400E31AC8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
